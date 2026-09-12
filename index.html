@@ -11,7 +11,7 @@
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#08090c">
+<meta name="theme-color" content="#000000">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
@@ -32,20 +32,20 @@
 
 <style>
   :root {
-    --bg: #08090c;
-    --panel: #111319;
-    --panel-2: #171a21;
-    --line: #242832;
-    --line-soft: #1a1d24;
+    --bg: #000000;
+    --panel: #0a0a0b;
+    --panel-2: #101012;
+    --line: #232326;
+    --line-soft: #18181a;
     --text: #f2f3f5;
-    --muted: #9297a3;
-    --muted-2: #c1c4cb;
+    --muted: #8f9096;
+    --muted-2: #c1c2c7;
     --accent: #ffffff;
-    --accent-dim: #1c1e24;
+    --accent-dim: #19191b;
     --focus: #ffffff;
-    --radius-lg: 16px;
-    --radius-md: 10px;
-    --radius-sm: 7px;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --radius-sm: 999px;
   }
 
   * { box-sizing: border-box; }
@@ -101,7 +101,7 @@
     justify-content: space-between;
     gap: 12px;
     padding: 14px max(20px, env(safe-area-inset-left)) 14px max(20px, env(safe-area-inset-right));
-    background: rgba(8, 9, 12, 0.82);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line-soft);
@@ -118,7 +118,7 @@
   .brand-logo {
     width: 30px;
     height: 30px;
-    border-radius: 8px;
+    border-radius: 50%;
     object-fit: cover;
     border: 1px solid var(--line);
     flex-shrink: 0;
@@ -148,7 +148,7 @@
     flex-shrink: 0;
   }
 
-  .topbar-link:hover { color: var(--text); border-color: #333844; }
+  .topbar-link:hover { color: var(--text); border-color: #3a3a3d; }
   .topbar-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 
   /* ---------- Page / hero ---------- */
@@ -168,7 +168,7 @@
     background: var(--accent-dim);
     border: 1px solid var(--line);
     padding: 6px 12px 6px 10px;
-    border-radius: 20px;
+    border-radius: 999px;
     margin-bottom: 20px;
   }
 
@@ -198,7 +198,7 @@
     margin-bottom: 36px;
     border: 1px solid var(--line-soft);
     background: var(--panel);
-    border-radius: 11px;
+    border-radius: 999px;
     padding: 4px;
     width: 100%;
     max-width: 300px;
@@ -216,7 +216,7 @@
     font-weight: 600;
     padding: 10px 0;
     min-height: 40px;
-    border-radius: 8px;
+    border-radius: 999px;
     cursor: pointer;
     transition: color 0.2s ease;
   }
@@ -228,7 +228,7 @@
     left: 4px;
     width: calc(50% - 6px);
     background: var(--text);
-    border-radius: 8px;
+    border-radius: 999px;
     transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -273,7 +273,7 @@
     transition: border-color 0.15s ease;
   }
 
-  .file-row:hover { border-color: #2b2f3a; }
+  .file-row:hover { border-color: #333336; }
 
   .file-left {
     display: flex;
@@ -284,9 +284,9 @@
 
   .file-icon {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-md);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
     background: var(--panel-2);
     border: 1px solid var(--line);
     display: flex;
@@ -321,8 +321,8 @@
     font-weight: 700;
     color: var(--accent);
     background: var(--accent-dim);
-    padding: 2px 7px;
-    border-radius: 10px;
+    padding: 2px 8px;
+    border-radius: 999px;
     flex-shrink: 0;
   }
 
@@ -455,9 +455,9 @@
 
   .discord-icon {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-md);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
     background: var(--panel-2);
     border: 1px solid var(--line);
     display: flex;
@@ -517,7 +517,7 @@
   .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(4, 5, 7, 0.78);
+    background: rgba(0, 0, 0, 0.82);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -552,7 +552,7 @@
   .modal-icon {
     width: 42px;
     height: 42px;
-    border-radius: var(--radius-md);
+    border-radius: 50%;
     background: var(--panel-2);
     border: 1px solid var(--line);
     display: flex;
