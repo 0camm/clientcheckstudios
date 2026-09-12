@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downloads</title>
+<style>
+  :root {
+    --bg: #000000;
+    --panel: #0f0f0f;
+    --panel-hover: #151515;
+    --white: #ffffff;
+    --line: #262626;
+    --line-soft: #1a1a1a;
+    --gray-mid: #8a8a8a;
+    --gray-soft: #b8b8b8;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 100px 24px 120px;
+  }
+
+  header {
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--gray-mid);
+    margin-bottom: 14px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+  }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    margin: 0;
+    color: var(--gray-mid);
+    font-size: 15px;
+    max-width: 46ch;
+  }
+
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .file-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    background: var(--panel);
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .file-row:hover {
+    background: var(--panel-hover);
+    border-color: var(--line);
+    transform: translateY(-1px);
+  }
+
+  .file-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .file-icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
+    background: #1a1a1a;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .file-icon svg {
+    width: 19px;
+    height: 19px;
+    stroke: var(--white);
+  }
+
+  .file-info {
+    min-width: 0;
+  }
+
+  .file-name {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 4px;
+    word-break: break-word;
+    color: var(--white);
+  }
+
+  .file-desc {
+    margin: 0 0 6px;
+    color: var(--gray-soft);
+    font-size: 13.5px;
+  }
+
+  .file-size {
+    font-size: 12px;
+    color: var(--gray-mid);
+  }
+
+  .download-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--white);
+    color: #000000;
+    border: 1px solid var(--white);
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+  }
+
+  .download-btn:hover {
+    opacity: 0.85;
+  }
+
+  .download-btn:active {
+    transform: scale(0.97);
+  }
+
+  .download-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  footer {
+    margin-top: 56px;
+    color: var(--gray-mid);
+    font-size: 13px;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 10;
+  }
+
+  .overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 360px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    transform: translateY(6px) scale(0.98);
+    transition: transform 0.15s ease;
+  }
+
+  .overlay.open .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+
+  .modal-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--white);
+  }
+
+  .modal h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .modal p {
+    font-size: 13.5px;
+    color: var(--gray-soft);
+    margin: 0 0 24px;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .modal-actions button {
+    flex: 1;
+    padding: 11px 0;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    transition: opacity 0.15s ease;
+  }
+
+  .modal-actions button:hover {
+    opacity: 0.85;
+  }
+
+  .btn-cancel {
+    background: transparent;
+    color: var(--white);
+  }
+
+  .btn-confirm {
+    background: var(--white);
+    color: #000000;
+    border-color: var(--white);
+  }
+
+  @media (max-width: 520px) {
+    .file-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .file-left {
+      width: 100%;
+    }
+
+    .download-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <span class="eyebrow">File index</span>
+      <h1>Downloads</h1>
+      <p>Select a file below to download it to your device.</p>
+    </header>
+
+    <div class="file-list" id="file-list"></div>
+
+    <footer>Files are provided as-is.</footer>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v12"></path>
+          <path d="M7 10l5 5 5-5"></path>
+          <path d="M5 21h14"></path>
+        </svg>
+      </div>
+      <h2 id="modal-title">Download file?</h2>
+      <p id="modal-desc">This will download the file to your device.</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="modal-cancel">Cancel</button>
+        <button class="btn-confirm" id="modal-confirm">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const files = [
+      {
+        name: "ClientCheck.exe",
+        description: "CCS Offical File.",
+        size: "32.0 MB",
+        url: "files/ClientCheck.exe"
+      }
+    ];
+
+    const list = document.getElementById("file-list");
+    const overlay = document.getElementById("overlay");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDesc = document.getElementById("modal-desc");
+    const modalCancel = document.getElementById("modal-cancel");
+    const modalConfirm = document.getElementById("modal-confirm");
+
+    let pendingFile = null;
+
+    function openModal(file) {
+      pendingFile = file;
+      modalTitle.textContent = "Download " + file.name + "?";
+      modalDesc.textContent = "Size: " + file.size + ". This will download the file to your device.";
+      overlay.classList.add("open");
+    }
+
+    function closeModal() {
+      overlay.classList.remove("open");
+      pendingFile = null;
+    }
+
+    modalCancel.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    modalConfirm.addEventListener("click", () => {
+      if (pendingFile) {
+        const link = document.createElement("a");
+        link.href = pendingFile.url;
+        link.download = pendingFile.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      closeModal();
+    });
+
+    files.forEach(file => {
+      const row = document.createElement("div");
+      row.className = "file-row";
+      row.innerHTML = `
+        <div class="file-left">
+          <div class="file-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <path d="M14 2v6h6"></path>
+            </svg>
+          </div>
+          <div class="file-info">
+            <p class="file-name">${file.name}</p>
+            <p class="file-desc">${file.description}</p>
+            <span class="file-size">${file.size}</span>
+          </div>
+        </div>
+        <button class="download-btn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12"></path>
+            <path d="M7 10l5 5 5-5"></path>
+            <path d="M5 21h14"></path>
+          </svg>
+          Download
+        </button>
+      `;
+      row.querySelector(".download-btn").addEventListener("click", () => openModal(file));
+      list.appendChild(row);
+    });
+  </script>
+</body>
+</html>
