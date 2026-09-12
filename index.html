@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClientCheckStudios™</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/0camm/clientcheckstudios/main/ccs.png">
 <style>
   :root {
     --bg: #000000;
@@ -39,11 +40,26 @@
     margin-bottom: 40px;
   }
 
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .header-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
   .eyebrow {
     display: inline-block;
     font-size: 12px;
     color: var(--gray-mid);
-    margin-bottom: 14px;
     padding: 5px 10px;
     border: 1px solid var(--line);
     border-radius: 20px;
@@ -461,7 +477,10 @@
 <body>
   <div class="page">
     <header>
-      <span class="eyebrow">File index</span>
+      <div class="header-brand">
+        <img class="header-logo" src="https://raw.githubusercontent.com/0camm/clientcheckstudios/main/ccs.png" alt="ClientCheckStudios logo">
+        <span class="eyebrow">File index</span>
+      </div>
       <h1>CCS File Downloader</h1>
       <p>Select a file below to download it to your device.</p>
     </header>
